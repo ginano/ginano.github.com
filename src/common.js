@@ -1,6 +1,11 @@
 var isDebug=/debug/i.test(window.location.hash),
 	Menus=[
 		{
+			'url':'http://github.ginano.net',
+			'name':'测试用例首页',
+			'title':'返回到我的测试用例主页'
+		},
+		{
 			'url':'function_declare.html',
 			'name':'函数声明与函数表达式',
 			'title':'测试函数声明与表达式的一些基本特征'
@@ -120,6 +125,7 @@ window.onload=function(){
 			html.setAttribute('id','declare');
 			html.innerHTML='<h3>免责声明：</h3>\
 							本系列相关案例都来源于互联网大牛们，只是兴趣验证一下解惑而已。如果有任何不妥，请及时联系我微博<a href="http://weibo.com/ginano" target="_blank">http://weibo.com/ginano</a><br/>\
+							但是如果需要转载本站任何内容，请注明来源是'+location.href+'<br/>\
 							目前主要来源：汤姆大叔的博客http://www.cnblogs.com/TomXu/';
 			document.body.appendChild(html);
 		},
