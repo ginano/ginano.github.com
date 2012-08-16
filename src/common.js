@@ -2,8 +2,9 @@ var isDebug=/debug/i.test(window.location.hash),
 	Menus=[
 		{
 			'url':'http://github.ginano.net',
-			'name':'测试用例首页',
-			'title':'返回到我的测试用例主页'
+			'name':'返回测试用例首页',
+			'title':'返回到我的测试用例主页',
+			'class':'link-home'
 		},
 		{
 			'url':'function_declare.html',
@@ -170,7 +171,7 @@ window.onload=function(){
 				}else{
 					cls='';
 				}
-				_html.push('<li><a class=" '+cls+' " href="'+temp['url']+(isDebug?'#debug':'')+'" title="'+temp['title']+'">'+temp['name']+'</a></li>');
+				_html.push('<li><a class=" '+cls+' '+(temp['class']||'')+'" href="'+temp['url']+(isDebug?'#debug':'')+'" title="'+temp['title']+'">'+temp['name']+'</a></li>');
 			}
 			_html.push('</ul>');
 			_html.push('<div id="menu-key" class="menu-key">>></div>');

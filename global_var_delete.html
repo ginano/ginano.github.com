@@ -27,7 +27,14 @@
 			log(typeof global_var);  
 			log(typeof global_novar);  
 			log(typeof global_fromfunc);  
-
+			
+			//但是eval在作用域的问题，在其中声明的变量将直接挂载在eval对应的作用域下的一个属性形式
+			//因此此时的变量是可以被删除的，代码如下：
+			
+			eval('var global_var_eval=4;');
+			log(delete global_var_eval);
+			
+			log(typeof global_var_eval);
 
 		</script>
     </body>
