@@ -63,3 +63,5 @@ body{padding-left:40px;}
 	top:50%;
 	cursor:pointer;
 }
+
+#script-source-code{display:none;}
