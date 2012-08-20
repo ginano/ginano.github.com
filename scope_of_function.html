@@ -16,7 +16,8 @@
 			  //with和catch又会引起什么变化呢？
 			  //更或者(function(){})()当中的作用域又是什么呢？
 			  //下面开始分析
-			  //----------------eval 作用域应该是他当前所在的上下文对应的作用域------------
+			  //----------------eval 作用域应该是他当前所在的上下文对应的作用域，所以和普通语句相比并没有什么不同------------
+			  //-------------------------
 			  var g1=2,g2=2;
 			  eval('var g1=1.1,g3=3;')
 			  log(g1);
@@ -24,13 +25,84 @@
 			  
 			  function test(){
 			  	var g4=4;
-			  	eval('var g4=4,g1=1.2');
+			  	eval(' log(g4); ');
+			  	eval('g4=4.1;g1=1.2');
 			  	log(g1);
 			  	log(g4);
+			  	function test2(){
+			  		log(g1);
+			  		log(g4);
+			  	}
+			  	test2();
 			  }
 			  test();
 			  log(g1);
-			  log(g4);
+			  try{
+			  	log(g4);
+			  }catch(e){
+			  	log('g4_is_undefined');
+			  }
+			  
+			  //----------------通过Function 创建的函数作用域始终对应于全局作用域------------
+			  function test3(){
+			  	var t3=6;
+			  	var test4=Function(' log(g1); ');
+			  	var test5=Function(' log(t3); ');
+			  	test4();
+			  	try{
+			  		test5();
+			  	}catch(e){
+			  		log('t3_is_undefined');
+			  	}
+			  }
+			  test3();
+			  
+			//----------------with 作用域不会改变，只是会将with(obj)中的obj对象插入到作用域链的顶部------------
+ 			
+ 			var g5 = 10, g6 = 10;
+			 
+			with ({g5: 20}) {
+			 //此处作用域仍然是当前with语句所在的上下文作用域，但是g5对应于with参数中的obj，而g6仍然为全局的变量。
+			  var g5 = 30, g6 = 30;
+			  log(g5);
+			  log(g6); 
+			}
+			log(g5);
+			log(g6);
+		 
+		  //--------------------catch()这种方式同with一样。----------------
+		  var g6=6;
+		  try{
+		  	g7++;
+		  }catch(g6){
+		  	g6=8;
+		  	log(g6);
+		  }
+		  log(g6);
+		  
+		  //------------------(function(){})()这种方式的作用域呢？-----------
+		  //这是我们经常用于创建闭包函数的方式，他的作用域我们可以来看看吧！
+		  //从结果看和普通语句一致的，没有什么两样，但是要注意他的this始终是全局的this喔
+		  //详情请查看《函数声明与函数表达式》一节
+		  var g9=9;
+		  function test6(){
+		  	var g10=10,
+		  		test7=(function(){
+		  			log(this);
+		  			return g10;
+		  		})();
+		  	log(test7);
+		  	(function(){
+		  		log(this);
+		  		log(g9);
+		  		log(g10);
+		  	})();
+		  }
+		  test6();
+		  (function(){
+		  	log(g9);
+		  	log(this);
+		  })();
 		</pre>
     </body>
 </html>

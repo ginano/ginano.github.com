@@ -17,7 +17,7 @@ var isDebug=/debug/i.test(window.location.hash),
 			'title':'全局变量的声明和未声明的区别'
 		},
 		{
-            'url':'global_var_delete.html',
+            'url':'scope_of_function.html',
             'name':'作用域及作用域链特例',
             'title':'作用域及作用域链的特例'
         }
@@ -180,9 +180,9 @@ window.onload=function(){
 				tempi='<li>'+arr[i].replace(/\s/g,'&nbsp;');
 				_random=j+'_'+Math.floor(Math.random()*50000);
 				//这个方法不一定准确，还有待提高好好想想
-				if(isDebug&&/^\s+log\(/.test(arr[i])){
+				if(isDebug&&/\s+log\(/.test(arr[i])){
 					tempi+='<span class="debug-result-item" id="'+_random+'"></span>';
-					_source.push(arr[i].replace(/^\s+log\(([^;]+)(?:\)\s*;\s*)$/i,'log($1,"'+_random+'");'));
+					_source.push(arr[i].replace(/\s+log\(([^;]+)(?:\)\s*;\s*)/i,'log($1,"'+_random+'");'));
 					j++;
 				}else{
 				    _source.push(arr[i]);
