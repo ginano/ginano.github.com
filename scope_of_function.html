@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="gbk"/>
+        <title>作用域及作用域链--javascript趣味探索系列，前端开发之Ginano</title>
+        <meta name="description" content="作用域及作用域链，javascript趣味探索系列,前端开发之Ginano"/>
+        <meta name="keywords" content="作用域及作用域链，javascript趣味探索系列，前端开发之Ginano"/>
+		<script type="text/javascript" language="JavaScript" src="src/common2.js"></script>
+        <link rel="stylesheet" href="src/common.css"/>
+    </head>
+    <body>
+        <pre id='script-source-code'>
+			  //大家都应该知道javascript中作用域的形成只与function相关，但是也有一些特殊的示例
+			  //比如eval的作用域是？
+			  //再比如Function()的作用域又是？
+			  //with和catch又会引起什么变化呢？
+			  //更或者(function(){})()当中的作用域又是什么呢？
+			  //下面开始分析
+			  //----------------eval 作用域应该是他当前所在的上下文对应的作用域------------
+			  var g1=2,g2=2;
+			  eval('var g1=1.1,g3=3;')
+			  log(g1);
+			  log(g2);
+			  
+			  function test(){
+			  	var g4=4;
+			  	eval('var g4=4,g1=1.2');
+			  	log(g1);
+			  	log(g4);
+			  }
+			  test();
+			  log(g1);
+			  log(g4);
+		</pre>
+    </body>
+</html>

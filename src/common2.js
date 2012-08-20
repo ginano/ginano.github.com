@@ -15,7 +15,12 @@ var isDebug=/debug/i.test(window.location.hash),
 			'url':'global_var_delete.html',
 			'name':'全局变量的声明和未声明的区别',
 			'title':'全局变量的声明和未声明的区别'
-		}
+		},
+		{
+            'url':'global_var_delete.html',
+            'name':'作用域及作用域链特例',
+            'title':'作用域及作用域链的特例'
+        }
 	];
 (function(window){
 	var loginfos={},
