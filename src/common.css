@@ -28,6 +28,7 @@ body{padding-left:40px;}
 }
 
 #declare,
+#notice,
 #script-source-show{
 	margin:20px;
 	padding:8px;
@@ -40,6 +41,10 @@ body{padding-left:40px;}
 #script-source-show .debug-result-item{color:#ff7300;}
 #logging h3,#declare h3{margin: 8px 0;line-height:22px;}
 
+#notice{
+	background-color: #FFD;
+	border: 1px solid #E9C378;
+}
 #testcase-menus{
 	
 	position:fixed;

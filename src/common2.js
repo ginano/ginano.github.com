@@ -153,6 +153,7 @@ window.onload=function(){
 			this.showSource();
 			this.declare(); //最后才免责声明
 			this.showMenu();//菜单显示
+			this.notice();   //展示提示信息
 		},
 		declare:function(){
 			var html=document.createElement('div');
@@ -163,6 +164,18 @@ window.onload=function(){
 							目前主要来源：汤姆大叔的博客http://www.cnblogs.com/TomXu/';
 			document.body.appendChild(html);
 		},
+		notice:function(){
+            if(isDebug){
+                return;
+            }
+            var html=document.createElement('div');
+            html.setAttribute('id','notice');
+            html.innerHTML='温馨提示：此链接可以查看本文的源代码调试结果喔！点击试试看<a id="reloadtodebug" href="'+location.href+'?debug=true#debug" title="查看本页面代码调试结果">'+location.href+'#debug</a>';
+            document.body.insertBefore(html,document.body.firstChild);
+   //         addEvent(document.getElementById('reloadtodebug'),'click',function(e){
+   //            location.replace(this.href);
+    //        });
+        },
 		showSource:function(){
 			var sourceDiv=$('script-source-code'),
 			    sourceCode=sourceDiv.innerHTML,
