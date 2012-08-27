@@ -5,82 +5,30 @@
         <title>全局变量的区别--javascript趣味探索系列，前端开发之Ginano</title>
         <meta name="description" content="全局变量的区别，javascript趣味探索系列,前端开发之Ginano"/>
         <meta name="keywords" content="全局变量的区别，javascript趣味探索系列，前端开发之Ginano"/>
-		<script type="text/javascript" language="JavaScript" src="src/common2.js"></script>
+		<script type="text/javascript"  src="src/common2.js"></script>
         <link rel="stylesheet" href="src/common.css"/>
     </head>
     <body>
        <pre id='script-source-code'>
-			//下面的代码验证了，解析器应该是先将所有的变量加入到上下文的变量列表中，并设值为undefined
-			  //然后再把function进行解析同样加入到上下文的变量列表中
-			  //在执行到当前作用域时则对var声明变量进行赋值操作
-			  //最后按照逻辑流程进行处理
-			  log(foo);
-			  log(test);
-			  var foo=function(){return 3;}
-			  function foo(){
-			  	return 4;
-			  }
-			  function test(){
-			  	return 5;
-			  }
-			  var test=function(){
-			  	return 6;
-			  }
-			  //只有firefox会是1，其他IE6/opera/chrome都是2
-			  if(true) {
-			    function foo(){ return 1; }
-			  }
-			  else {
-			    function foo(){ return 2; }
-			  }
-			  log(foo);
-			  log(test);
-			  log(foo());
-			  
-			//-------------------其他IE下的bug调试
-			log(typeof g);
-			var f = function g() {
-				return 7;
-			};
-			if (false) {
-				f = function g(){
-					return 8;
-				};
+			function foo() {
+ 
+			  var x = 10;
+			 
+			  (function bar() {
+			 
+			    log(x); 
+			    // 20, 不上10,不是从foo的活动对象上得到的
+			 
+			    // "x"从链上查找:
+			    // AO(bar) - no -> __specialObject(bar) -> no
+			    // __specialObject(bar).[[Prototype]] - yes: 20
+			 
+			  })();
 			}
-			log(typeof g);
-			
-			//------看看全局变量gg设置成功了没---
-			
-			(function(){
-				gg = function gg(){};
-				log(gg);
-				
-			})();
-			log(gg);	
-			//----匿名函数的this-------
-			(function(){
-				log(this);
-				(function(){
-					log(this);
-					(function(){
-						log(this);
-						var dd=function sfd(){
-							log(this);
-						};
-						dd();
-					})();
-				})();
-			})();
-			
-			
-			
-			//test the logic without order
-			testlogic();
-			log('maybe the first');
-			
-			function testlogic(){
-				log('maybe the last');
-			}
+			 
+			Object.prototype.x = 20;
+			 
+			foo();
 			
 		</pre>
     </body>

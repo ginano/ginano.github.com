@@ -103,6 +103,22 @@
 		  	log(g9);
 		  	log(this);
 		  })();
+		  
+		//再看看另外一种情况的结果
+		var z = 10;
+		function foo() {
+		  return z;
+		}		
+		log(foo()); 		
+		(function () {		
+		  var z = 20;
+		  log(foo()); 
+		})();
+		// 将foo作为参数的时候是一样的
+		(function (funArg) {
+		  var z = 30;
+		  log(funArg());
+		})(foo);
 		</pre>
     </body>
 </html>
