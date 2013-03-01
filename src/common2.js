@@ -1,5 +1,8 @@
 var isDebug=/debug/i.test(window.location.hash),
-	Menus=[
+    Page=Page||{};
+	
+Page.Menus=Page.Menus 
+	|| [
 		{
 			'url':'http://github.ginano.net',
 			'name':'返回测试用例首页',
@@ -22,6 +25,11 @@ var isDebug=/debug/i.test(window.location.hash),
             'title':'作用域及作用域链的特例'
         }
 	];
+Page.CopyRight=Page.CopyRight
+    || '<h3>免责声明：</h3>\
+        本系列相关案例都来源于互联网大牛们，只是兴趣验证一下解惑而已。如果有任何不妥，请及时联系我微博<a href="http://weibo.com/ginano" target="_blank">http://weibo.com/ginano</a><br/>\
+        但是如果需要转载本站任何内容，请注明来源是'+location.href+'<br/>\
+        目前主要来源：汤姆大叔的博客http://www.cnblogs.com/TomXu/';
 (function(window){
 	var loginfos={},
 		_get=function(id){
@@ -158,10 +166,7 @@ window.onload=function(){
 		declare:function(){
 			var html=document.createElement('div');
 			html.setAttribute('id','declare');
-			html.innerHTML='<h3>免责声明：</h3>\
-							本系列相关案例都来源于互联网大牛们，只是兴趣验证一下解惑而已。如果有任何不妥，请及时联系我微博<a href="http://weibo.com/ginano" target="_blank">http://weibo.com/ginano</a><br/>\
-							但是如果需要转载本站任何内容，请注明来源是'+location.href+'<br/>\
-							目前主要来源：汤姆大叔的博客http://www.cnblogs.com/TomXu/';
+			html.innerHTML=Page.CopyRight;
 			document.body.appendChild(html);
 		},
 		notice:function(){
@@ -222,6 +227,7 @@ window.onload=function(){
 				i,len,temp,_html=[],cls='',
 				menuList,
 				arrow,
+				Menus=Page.Menus,
 				url=location.href;
 			html.setAttribute('id','testcase-menus');
 			_html.push('<ul id="menu-list" class="menu-list">');
