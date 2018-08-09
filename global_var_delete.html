@@ -1,35 +1,35 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
     <head>
-        <meta charset="gbk"/>
-        <title>ȫ�ֱ���������--javascriptȤζ̽��ϵ�У�ǰ�˿���֮Ginano</title>
-        <meta name="description" content="ȫ�ֱ���������javascriptȤζ̽��ϵ��,ǰ�˿���֮Ginano"/>
-        <meta name="keywords" content="ȫ�ֱ���������javascriptȤζ̽��ϵ�У�ǰ�˿���֮Ginano"/>
+        <meta charset="UTF-8"/>
+        <title>全局变量的区别--javascript趣味探索系列，前端开发之Ginano</title>
+        <meta name="description" content="全局变量的区别，javascript趣味探索系列,前端开发之Ginano"/>
+        <meta name="keywords" content="全局变量的区别，javascript趣味探索系列，前端开发之Ginano"/>
 		<script type="text/javascript" language="JavaScript" src="src/common2.js"></script>
         <link rel="stylesheet" href="src/common.css"/>
     </head>
     <body>
         <pre id='script-source-code'>
-			// ��������ȫ�ֱ���
-			//У��δ������ȫ�ֱ�������Ϊ������windowȫ�ֶ����µ����ԣ���˿���delete
+			// 定义三个全局变量
+			//校验未声明的全局变量将成为挂载再window全局对象下的属性，因此可以delete
 			var global_var = 1;
-			global_novar = 2; // ����̲�
+			global_novar = 2; // 反面教材
 			(function () {
-			   global_fromfunc = 3; // ����̲�
+			   global_fromfunc = 3; // 反面教材
 			}());
 			
-			// ��ͼɾ��
+			// 试图删除
 			log(delete global_var);  
 			log(delete global_novar);  
 			log(delete global_fromfunc);  
 			
-			// ���Ը�ɾ��
+			// 测试该删除
 			log(typeof global_var);  
 			log(typeof global_novar);  
 			log(typeof global_fromfunc);  
 			
-			//����eval������������⣬�����������ı�����ֱ�ӹ�����eval��Ӧ���������µ�һ��������ʽ
-			//��˴�ʱ�ı����ǿ��Ա�ɾ���ģ��������£�
+			//但是eval在作用域的问题，在其中声明的变量将直接挂载在eval对应的作用域下的一个属性形式
+			//因此此时的变量是可以被删除的，代码如下：
 			
 			eval('var global_var_eval=4;');
 			log(delete global_var_eval);
