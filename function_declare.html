@@ -1,19 +1,19 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
     <head>
-        <meta charset="gbk"/>
-        <title>���������뺯������ʽ--javascriptȤζ̽��ϵ�У�ǰ�˿���֮Ginano</title>
-        <meta name="description" content="���������뺯������ʽ��javascriptȤζ̽��ϵ��,ǰ�˿���֮Ginano"/>
-        <meta name="keywords" content="���������뺯������ʽ��javascriptȤζ̽��ϵ�У�ǰ�˿���֮Ginano"/>
+        <meta charset="UTF-8"/>
+        <title>函数声明与函数表达式--javascript趣味探索系列，前端开发之Ginano</title>
+        <meta name="description" content="函数声明与函数表达式，javascript趣味探索系列,前端开发之Ginano"/>
+        <meta name="keywords" content="函数声明与函数表达式，javascript趣味探索系列，前端开发之Ginano"/>
 		<script type="text/javascript" language="JavaScript" src="src/common2.js"></script>
         <link rel="stylesheet" href="src/common.css"/>
     </head>
     <body>
        <pre id='script-source-code'>
-			  //����Ĵ�����֤�ˣ�������Ӧ�����Ƚ����еı������뵽�����ĵı����б��У�����ֵΪundefined
-			  //Ȼ���ٰ�function���н���ͬ�����뵽�����ĵı����б���
-			  //��ִ�е���ǰ������ʱ���var�����������и�ֵ����
-			  //������߼����̽��д���
+			  //下面的代码验证了，解析器应该是先将所有的变量加入到上下文的变量列表中，并设值为undefined
+			  //然后再把function进行解析同样加入到上下文的变量列表中
+			  //在执行到当前作用域时则对var声明变量进行赋值操作
+			  //最后按照逻辑流程进行处理
 			  log(foo);
 			  log(test);
 			  var foo=function(){return 3;}
@@ -26,7 +26,7 @@
 			  var test=function(){
 			  	return 6;
 			  }
-			  //ֻ��firefox����1������IE6/opera/chrome����2
+			  //只有firefox会是1，其他IE6/opera/chrome都是2
 			  if(true) {
 			    function foo(){ return 1; }
 			  }
@@ -37,7 +37,7 @@
 			  log(test);
 			  log(foo());
 			  
-			//-------------------����IE�µ�bug����
+			//-------------------其他IE下的bug调试
 			log(typeof g);
 			var f = function g() {
 				return 7;
@@ -49,7 +49,7 @@
 			}
 			log(typeof g);
 			
-			//------����ȫ�ֱ���gg���óɹ���û---
+			//------看看全局变量gg设置成功了没---
 			
 			(function(){
 				gg = function gg(){};
@@ -57,7 +57,7 @@
 				
 			})();
 			log(gg);	
-			//----����������this-------
+			//----匿名函数的this-------
 			(function(){
 				log(this);
 				(function(){
