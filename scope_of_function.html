@@ -1,22 +1,22 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
     <head>
-        <meta charset="gbk"/>
-        <title>��������������--javascriptȤζ̽��ϵ�У�ǰ�˿���֮Ginano</title>
-        <meta name="description" content="����������������javascriptȤζ̽��ϵ��,ǰ�˿���֮Ginano"/>
-        <meta name="keywords" content="����������������javascriptȤζ̽��ϵ�У�ǰ�˿���֮Ginano"/>
+        <meta charset="UTF-8"/>
+        <title>作用域及作用域链--javascript趣味探索系列，前端开发之Ginano</title>
+        <meta name="description" content="作用域及作用域链，javascript趣味探索系列,前端开发之Ginano"/>
+        <meta name="keywords" content="作用域及作用域链，javascript趣味探索系列，前端开发之Ginano"/>
 		<script type="text/javascript" language="JavaScript" src="src/common2.js"></script>
         <link rel="stylesheet" href="src/common.css"/>
     </head>
     <body>
         <pre id='script-source-code'>
-			  //��Ҷ�Ӧ��֪��javascript����������γ�ֻ��function��أ�����Ҳ��һЩ�����ʾ��
-			  //����eval���������ǣ�
-			  //�ٱ���Function()�����������ǣ�
-			  //with��catch�ֻ�����ʲô�仯�أ�
-			  //������(function(){})()���е�����������ʲô�أ�
-			  //���濪ʼ����
-			  //----------------eval ������Ӧ��������ǰ���ڵ������Ķ�Ӧ�����������Ժ���ͨ�����Ȳ�û��ʲô��ͬ------------
+			  //大家都应该知道javascript中作用域的形成只与function相关，但是也有一些特殊的示例
+			  //比如eval的作用域是？
+			  //再比如Function()的作用域又是？
+			  //with和catch又会引起什么变化呢？
+			  //更或者(function(){})()当中的作用域又是什么呢？
+			  //下面开始分析
+			  //----------------eval 作用域应该是他当前所在的上下文对应的作用域，所以和普通语句相比并没有什么不同------------
 			  //-------------------------
 			  var g1=2,g2=2;
 			  eval('var g1=1.1,g3=3;')
@@ -43,7 +43,7 @@
 			  	log('g4_is_undefined');
 			  }
 			  
-			  //----------------ͨ��Function �����ĺ���������ʼ�ն�Ӧ��ȫ��������------------
+			  //----------------通过Function 创建的函数作用域始终对应于全局作用域------------
 			  function test3(){
 			  	var t3=6;
 			  	var test4=Function(' log(g1); ');
@@ -57,12 +57,12 @@
 			  }
 			  test3();
 			  
-			//----------------with �����򲻻�ı䣬ֻ�ǻὫwith(obj)�е�obj������뵽���������Ķ���------------
+			//----------------with 作用域不会改变，只是会将with(obj)中的obj对象插入到作用域链的顶部------------
  			
  			var g5 = 10, g6 = 10;
 			 
 			with ({g5: 20}) {
-			 //�˴���������Ȼ�ǵ�ǰwith������ڵ������������򣬵���g5��Ӧ��with�����е�obj����g6��ȻΪȫ�ֵı�����
+			 //此处作用域仍然是当前with语句所在的上下文作用域，但是g5对应于with参数中的obj，而g6仍然为全局的变量。
 			  var g5 = 30, g6 = 30;
 			  log(g5);
 			  log(g6); 
@@ -70,7 +70,7 @@
 			log(g5);
 			log(g6);
 		 
-		  //--------------------catch()���ַ�ʽͬwithһ����----------------
+		  //--------------------catch()这种方式同with一样。----------------
 		  var g6=6;
 		  try{
 		  	g7++;
@@ -80,10 +80,10 @@
 		  }
 		  log(g6);
 		  
-		  //------------------(function(){})()���ַ�ʽ���������أ�-----------
-		  //�������Ǿ������ڴ����հ������ķ�ʽ���������������ǿ����������ɣ�
-		  //�ӽ��������ͨ���һ�µģ�û��ʲô����������Ҫע������thisʼ����ȫ�ֵ�this�
-		  //������鿴�����������뺯������ʽ��һ��
+		  //------------------(function(){})()这种方式的作用域呢？-----------
+		  //这是我们经常用于创建闭包函数的方式，他的作用域我们可以来看看吧！
+		  //从结果看和普通语句一致的，没有什么两样，但是要注意他的this始终是全局的this喔
+		  //详情请查看《函数声明与函数表达式》一节
 		  var g9=9;
 		  function test6(){
 		  	var g10=10,
@@ -104,7 +104,7 @@
 		  	log(this);
 		  })();
 		  
-		//�ٿ�������һ������Ľ��
+		//再看看另外一种情况的结果
 		var z = 10;
 		function foo() {
 		  return z;
@@ -114,7 +114,7 @@
 		  var z = 20;
 		  log(foo()); 
 		})();
-		// ��foo��Ϊ������ʱ����һ����
+		// 将foo作为参数的时候是一样的
 		(function (funArg) {
 		  var z = 30;
 		  log(funArg());
